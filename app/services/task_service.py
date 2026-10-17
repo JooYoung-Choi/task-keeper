@@ -4,7 +4,7 @@ from app.models import Tag, Task
 
 
 def list_tasks(db: Session) -> list[Task]:
-    # 태그를 selectinload로 한 번에 가져와 직렬화 시 N+1 쿼리를 방지합니다.
+    # 직렬화 시 task.tags 접근으로 생기는 N+1 방지
     tasks = db.query(Task).options(selectinload(Task.tags)).all()
     return tasks
 
